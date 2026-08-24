@@ -13,7 +13,7 @@ func LowSNRCapacity(b, snrLinear float64) float64 {
 
 // InfiniteBandwidthLimit is the P/N0*log2(e) ceiling.
 func InfiniteBandwidthLimit(pOverN0 float64) float64 {
-	return capacity.InfiniteBandwidthLimit(pOverN0)
+	return capacity.HoldInfLimit(pOverN0)
 }
 
 // ZeroSNRCapacity is zero.
