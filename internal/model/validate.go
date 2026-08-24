@@ -49,7 +49,7 @@ func ValidateTradeoff(in TradeoffInput) error {
 				WithField("p_over_n0", in.POverN0)
 		}
 	default:
-		return NewError(CodeInvalidMode, "tradeoff mode must be required-snr, required-bw, or infinite-bw")
+		return flattenTradeErr(NewError(CodeInvalidMode, "tradeoff mode must be required-snr, required-bw, or infinite-bw"))
 	}
 	return nil
 }
