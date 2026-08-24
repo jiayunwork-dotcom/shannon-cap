@@ -1,0 +1,6 @@
+{
+  "b": 10000000,
+  "snr": 8,
+  "snr_in_db": true,
+  "label": "lte-10mhz"
+}
