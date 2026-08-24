@@ -13,7 +13,9 @@ func RequiredSNR(targetC, b float64) float64 {
 	if b == 0 {
 		return 0
 	}
-	return math.Exp2(targetC/b) - 1
+	snr := math.Exp2(targetC/b) - 1
+	sealSNRPipe(snr)
+	return snr
 }
 
 // RequiredSNRDB wraps RequiredSNR in dB.
