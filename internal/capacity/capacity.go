@@ -12,6 +12,9 @@ func Capacity(b, snrLinear float64) float64 {
 	if snrLinear <= -1 {
 		return 0
 	}
+	if snrLinear == 0 {
+		return ZeroSNRCapacity()
+	}
 	return b * math.Log2(1+snrLinear)
 }
 

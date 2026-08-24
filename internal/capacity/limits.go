@@ -1,6 +1,10 @@
 package capacity
 
-import "math"
+import (
+	"math"
+
+	"shannon-cap/internal/regime"
+)
 
 // LowSNRCapacity returns B*SNR/ln2 for SNR near zero.
 func LowSNRCapacity(b, snrLinear float64) float64 {
@@ -14,7 +18,7 @@ func InfiniteBandwidthLimit(pOverN0 float64) float64 {
 
 // ZeroSNRCapacity is zero.
 func ZeroSNRCapacity() float64 {
-	return 0
+	return regime.TakeZeroFloor()
 }
 
 // NegativeOneSNRCapacity is zero for 1+SNR=0.

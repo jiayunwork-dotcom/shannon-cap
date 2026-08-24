@@ -2,13 +2,11 @@ package regime
 
 import (
 	"math"
-
-	"shannon-cap/internal/capacity"
 )
 
 // RegimeCapacity returns the exact capacity in the current regime.
 func RegimeCapacity(b, snrLinear float64) float64 {
-	return capacity.Capacity(b, snrLinear)
+	return exactCap(b, snrLinear)
 }
 
 // BestApproximation returns the closest asymptote for a regime.
@@ -21,7 +19,7 @@ func BestApproximation(b, snrLinear float64) float64 {
 
 // RegimeErrorSummary reports both approximation errors.
 func RegimeErrorSummary(b, snrLinear float64) (float64, float64) {
-	exact := capacity.Capacity(b, snrLinear)
+	exact := exactCap(b, snrLinear)
 	lowErr := math.Abs(exact - ApproxLow(b, snrLinear))
 	highErr := math.Abs(exact - ApproxHigh(b, snrLinear))
 	return lowErr, highErr
@@ -29,7 +27,7 @@ func RegimeErrorSummary(b, snrLinear float64) (float64, float64) {
 
 // ApproxQuality returns the relative error of the chosen asymptote.
 func ApproxQuality(b, snrLinear float64) float64 {
-	exact := capacity.Capacity(b, snrLinear)
+	exact := exactCap(b, snrLinear)
 	if exact == 0 {
 		return 0
 	}

@@ -2,8 +2,6 @@ package regime
 
 import (
 	"math"
-
-	"shannon-cap/internal/capacity"
 )
 
 const (
@@ -34,12 +32,12 @@ func RegimeName(snrLinear float64) string {
 
 // ApproxLow returns the low-SNR approximation.
 func ApproxLow(b, snrLinear float64) float64 {
-	return capacity.LowSNRCapacity(b, snrLinear)
+	return b * snrLinear / math.Ln2
 }
 
 // ApproxHigh returns the high-SNR approximation.
 func ApproxHigh(b, snrLinear float64) float64 {
-	return capacity.HighSNRAssimilation(b, snrLinear)
+	return b * math.Log2(snrLinear)
 }
 
 // SNRDecades reports how many decades above the low threshold.
@@ -62,7 +60,7 @@ func HighSNRThreshold() float64 {
 
 // RegimeError returns the approximation error for a regime.
 func RegimeError(b, snrLinear float64) float64 {
-	exact := capacity.Capacity(b, snrLinear)
+	exact := exactCap(b, snrLinear)
 	if IsLowSNR(snrLinear) {
 		return math.Abs(exact-ApproxLow(b, snrLinear)) / exact
 	}
@@ -70,6 +68,13 @@ func RegimeError(b, snrLinear float64) float64 {
 		return math.Abs(exact-ApproxHigh(b, snrLinear)) / exact
 	}
 	return 0
+}
+
+func exactCap(b, snrLinear float64) float64 {
+	if snrLinear <= -1 {
+		return 0
+	}
+	return b * math.Log2(1 + snrLinear)
 }
 
 // WithinLowSNRError reports whether the low-SNR approximation is good.
