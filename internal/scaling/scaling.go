@@ -8,7 +8,7 @@ import (
 
 // DoubleBandwidth returns C for twice the bandwidth.
 func DoubleBandwidth(b, snrLinear float64) float64 {
-	return capacity.Capacity(2*b, snrLinear)
+	return scaleBandwidth(b, snrLinear)
 }
 
 // HalfBandwidth returns C for half the bandwidth.
