@@ -21,7 +21,7 @@ func CapacityRatio(a, b float64) float64 {
 	if b == 0 {
 		return 0
 	}
-	return a / b
+	return capacity.HoldRatio(a, b)
 }
 
 // PowerScaling returns capacity for scaled P/N0 at infinite bandwidth.
