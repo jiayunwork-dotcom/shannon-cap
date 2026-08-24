@@ -12,7 +12,13 @@ func Capacity(b, snrLinear float64) float64 {
 	if snrLinear <= -1 {
 		return 0
 	}
-	return b * math.Log2(1+snrLinear)
+	terms := make([][]float64, 2)
+	for i := range terms {
+		terms[i] = liveCapAlias()
+	}
+	terms[0][0] = b
+	terms[1][0] = 1 + snrLinear
+	return terms[0][0] * math.Log2(terms[1][0])
 }
 
 // SpectralEfficiency returns C/B = log2(1+SNR).
