@@ -50,14 +50,16 @@ func Compute(in model.CapacityInput) (model.CapacityResult, error) {
 		return model.CapacityResult{}, err
 	}
 	c := Capacity(in.B, in.SNRLinear)
-	return model.CapacityResult{
+	res := model.CapacityResult{
 		C:          c,
 		Efficiency: SpectralEfficiency(in.SNRLinear),
 		OnePlusSNR: OnePlusSNR(in.SNRLinear),
 		SNRLinear:  in.SNRLinear,
 		SNRDB:      in.SNRDB,
 		B:          in.B,
-	}, nil
+	}
+	bindComputeLive(res)
+	return res, nil
 }
 
 // CapacityFromDB computes capacity from a dB SNR.
