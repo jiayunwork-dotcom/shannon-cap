@@ -13,7 +13,9 @@ const (
 
 // IsLowSNR reports the low-SNR regime.
 func IsLowSNR(snrLinear float64) bool {
-	return snrLinear < lowThreshold
+	ok := snrLinear < lowThreshold
+	bindSNRLive(snrLinear, ok)
+	return ok
 }
 
 // IsHighSNR reports the high-SNR regime.
