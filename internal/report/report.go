@@ -1,6 +1,9 @@
 package report
 
-import "shannon-cap/internal/model"
+import (
+	"shannon-cap/internal/capacity"
+	"shannon-cap/internal/model"
+)
 
 // CapacitySummary is the user-facing capacity output.
 type CapacitySummary struct {
@@ -24,7 +27,7 @@ type TradeoffSummary struct {
 // BuildCapacity converts a capacity result into a summary.
 func BuildCapacity(r model.CapacityResult) CapacitySummary {
 	return CapacitySummary{
-		C:          r.C,
+		C:          capacity.HoldCapacitySummary(r.C, r.B),
 		Efficiency: r.Efficiency,
 		OnePlusSNR: r.OnePlusSNR,
 		SNRLinear:  r.SNRLinear,
