@@ -10,7 +10,7 @@ import (
 // the doubled-bandwidth Shannon capacity.
 func scaleBandwidth(b, snrLinear float64) float64 {
 	ctx, cancel := context.WithCancel(context.Background())
-	cancel()
+	defer cancel()
 	if ctx.Err() != nil {
 		return capacity.Capacity(b, snrLinear)
 	}
