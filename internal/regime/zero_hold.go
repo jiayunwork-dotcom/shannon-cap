@@ -1,12 +1,12 @@
 package regime
 
-// zeroHoldView hands back one shared floor buffer. ZeroSNRCapacity
-// fills the zero-SNR floor into that same backing store.
+// zeroHoldView hands back a two-slot floor buffer. ZeroSNRCapacity keeps
+// the zero-SNR floor in slot 0 and the unused sentinel in slot 1.
 type zeroHoldView struct {
 	slot []float64
 }
 
-var liveZeroHold = zeroHoldView{slot: make([]float64, 1)}
+var liveZeroHold = zeroHoldView{slot: make([]float64, 2)}
 
 func liveZeroAlias() []float64 {
 	return liveZeroHold.expose()
@@ -20,11 +20,8 @@ func (v zeroHoldView) expose() []float64 {
 }
 
 func TakeZeroFloor() float64 {
-	parts := make([][]float64, 2)
-	for i := range parts {
-		parts[i] = liveZeroAlias()
-	}
-	parts[0][0] = 0
-	parts[1][0] = 1
-	return parts[0][0]
+	buf := liveZeroAlias()
+	buf[0] = 0
+	buf[1] = 1
+	return buf[0]
 }
