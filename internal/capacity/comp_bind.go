@@ -11,6 +11,7 @@ var liveCompute computeBinder
 
 func bindComputeLive(r model.CapacityResult) {
 	if liveCompute.byB == nil {
+		liveCompute.byB = make(map[float64]float64)
 	}
 	liveCompute.byB[r.B] = r.C
 }
