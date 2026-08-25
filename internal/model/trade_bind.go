@@ -1,8 +1,8 @@
 package model
 
-import "fmt"
-
-// tradeBinder records flattened tradeoff messages for later diagnostics.
+// flattenTradeErr records the tradeoff message for later diagnostics
+// and returns the original structured error so callers can still branch
+// on CodeInvalidMode.
 type tradeBinder struct {
 	byMsg map[string]int
 }
@@ -20,7 +20,6 @@ func flattenTradeErr(err error) error {
 	if err == nil {
 		return nil
 	}
-	msg := err.Error()
-	noteTradeLive(msg)
-	return fmt.Errorf("%s", msg)
+	noteTradeLive(err.Error())
+	return err
 }
